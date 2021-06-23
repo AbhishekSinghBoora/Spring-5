@@ -11,7 +11,7 @@ public class Client {
 	public static void main(String[] args) {
 		AbstractApplicationContext ctx = new AnnotationConfigApplicationContext(SpringConfiguration.class);
 		CustomerServiceImpl service = (CustomerServiceImpl) ctx.getBean("customerService");
-		System.out.println(service.getCount());
+		System.out.println(service.fetchCustomer());
 		ctx.close();
 
 	}
