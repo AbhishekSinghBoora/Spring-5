@@ -1,18 +1,32 @@
 package com.infy.service;
 
+import java.util.List;
+
 import com.infy.dto.EmployeeDTO;
+import com.infy.repository.EmployeeRepository;
+import com.infy.repository.EmployeeRepositoryImpl;
 
 public class EmployeeServiceImpl implements EmployeeService{
-
+	
+	private EmployeeRepository employeeDAO;
+	// default constructor
+	public EmployeeServiceImpl() {
+	}
+	
+	public void setRepository(EmployeeRepositoryImpl employeeDAO) {
+		this.employeeDAO = (EmployeeRepository) employeeDAO;
+	}
+	
 	public void insert(EmployeeDTO emp) {
-		System.out.println("inserted");
-		
+		employeeDAO.insertEmployee(emp);		
 	}
 
 	public void delete(int empId) {
-		System.out.println("deleted");
-		
+		employeeDAO.removeEmployee(empId);		
 	}
 	
+	public List<EmployeeDTO> getAllCustomer(){
+		return employeeDAO.fetchCustomer();
+	}
 
 }
