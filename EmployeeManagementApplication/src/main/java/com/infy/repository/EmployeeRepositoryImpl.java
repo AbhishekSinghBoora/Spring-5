@@ -8,10 +8,11 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 
 import com.infy.dto.EmployeeDTO;
-@Repository(value="employeeRepository")
+
+@Repository("employeeRepository")
 public class EmployeeRepositoryImpl implements EmployeeRepository{
 
-	List<EmployeeDTO> employee = null;
+	List<EmployeeDTO> employees = null;
 	
 	@PostConstruct
 	public void initializer() {
@@ -19,23 +20,26 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
 		employeeDTO.setEmpId(101);
 		employeeDTO.setEmpName("Jack");
 		employeeDTO.setDepartment("ETA");
-		employee = new ArrayList<EmployeeDTO>();
-		employee.add(employeeDTO);
+		employees = new ArrayList<EmployeeDTO>();
+		employees.add(employeeDTO);
 		
 	}
 	
+	// add the new employee to employees list
 	public void insertEmployee(EmployeeDTO emp) {
-		employee.add(emp);
+		employees.add(emp);
 		
 	}
 
+	// remove the employee form the employees list using employee id
 	public void removeEmployee(int empId) {
-		employee.remove(empId);
+		employees.remove(empId);
 		
 	}
 
+	// return a list of employees
 	public List<EmployeeDTO> fetchCustomer() {
-		return employee;
+		return employees;
 	}
 	
 
