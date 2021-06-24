@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import com.infy.dto.EmployeeDTO;
+import org.springframework.stereotype.Repository;
 
+import com.infy.dto.EmployeeDTO;
+@Repository(value="employeeRepository")
 public class EmployeeRepositoryImpl implements EmployeeRepository{
 
 	List<EmployeeDTO> employee = null;

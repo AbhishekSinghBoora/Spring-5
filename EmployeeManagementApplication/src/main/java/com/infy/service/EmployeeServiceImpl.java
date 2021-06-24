@@ -2,10 +2,12 @@ package com.infy.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.infy.dto.EmployeeDTO;
 import com.infy.repository.EmployeeRepository;
 import com.infy.repository.EmployeeRepositoryImpl;
-
+@Service(value="employeeService")
 public class EmployeeServiceImpl implements EmployeeService{
 	
 	private EmployeeRepository employeeDAO;
