@@ -12,13 +12,6 @@ import com.infy.repository.EmployeeRepository;
 public class EmployeeServiceImpl implements EmployeeService{
 	@Autowired
 	private EmployeeRepository employeeDAO;
-//	// default constructor
-//	public EmployeeServiceImpl() {
-//	}
-//	@Autowired // auto-wiring on setter method
-//	public void setRepository(EmployeeRepositoryImpl employeeDAO) {
-//		this.employeeDAO = (EmployeeRepository) employeeDAO;
-//	}
 	
 	public void insert(EmployeeDTO emp) {
 		employeeDAO.insertEmployee(emp);	
