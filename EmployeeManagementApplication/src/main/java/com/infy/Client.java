@@ -14,18 +14,8 @@ public class Client {
 	public static void main(String[] args) {
 		AbstractApplicationContext ctx = (AbstractApplicationContext) SpringApplication.run(Client.class, args) ;
 		EmployeeServiceImpl service1 = (EmployeeServiceImpl) ctx.getBean("employeeService");
-//		EmployeeDTO emp = new EmployeeDTO(102, "John", "FDC");
-//		service1.insert(emp);
-//		List<EmployeeDTO> list1 = service1.getAllCustomer();
-//
-//		for(EmployeeDTO e : list1) {
-//			System.out.format("EmpId: %d   Name: %s   Dept: %s", e.getEmpId(),e.getEmpName(),e.getDepartment());
-//			System.out.println();
-//		}
-		
-		service1.delete(101);
-		
-//		ctx.close();
+		service1.getAllEmployees();		
+		ctx.close();
 
 	}
 

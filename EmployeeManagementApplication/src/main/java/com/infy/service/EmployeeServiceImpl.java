@@ -35,8 +35,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 		}
 	}
 	
-	public List<EmployeeDTO> getAllCustomer(){
-		return employeeDAO.fetchCustomer();
+	public List<EmployeeDTO> getAllEmployees(){
+		return employeeDAO.fetchEmployees();
+	}
+
+	@Override
+	public void update(int empId, EmployeeDTO emp) {
+		employeeDAO.updateEmployee(empId,emp);
 	}
 
 }

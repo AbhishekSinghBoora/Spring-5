@@ -49,8 +49,28 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
 	}
 
 	// return a list of employees
-	public List<EmployeeDTO> fetchCustomer() {
+	public List<EmployeeDTO> fetchEmployees() {
 		return employees;
+	}
+
+	// update the department of an employee
+	@Override
+	public void updateEmployee(int empId, EmployeeDTO emp) {
+		String response = "Employee of EmpId :"+empId+ "\tdoes not exist";
+		for(EmployeeDTO e:employees) {
+			if(e.getEmpId()==empId) {
+				if(emp.getEmpName()!=null)
+					e.setEmpName(emp.getEmpName());
+				if(emp.getDepartment()!=null)
+					e.setDepartment(e.getDepartment());
+				
+				employees.set(empId, e);
+				response = "Employee of EmpId "+e.getEmpId()+"\t got updated successfully";
+				break;
+			}
+		}
+		System.out.println(response);
+		
 	}
 	
 
