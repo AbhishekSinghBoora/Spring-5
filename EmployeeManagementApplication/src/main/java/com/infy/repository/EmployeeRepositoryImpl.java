@@ -5,16 +5,14 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.context.annotation.Scope;
+//import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import com.infy.dto.EmployeeDTO;
 
 @Repository("employeeRepository")
-@Scope("singleton")
+//@Scope("singleton")
 public class EmployeeRepositoryImpl implements EmployeeRepository{
-
-	List<EmployeeDTO> employees = null;
 	
 	@PostConstruct
 	public void initializer() {
@@ -26,6 +24,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
 		employees.add(employeeDTO);
 		
 	}
+
+	List<EmployeeDTO> employees = null;
 	
 	// add the new employee to employees list
 	public void insertEmployee(EmployeeDTO emp) {
@@ -34,8 +34,17 @@ public class EmployeeRepositoryImpl implements EmployeeRepository{
 	}
 
 	// remove the employee form the employees list using employee id
-	public void removeEmployee(int empId) {
-		employees.remove(empId);
+	public void removeEmployee(int empId) throws Exception{
+		for(EmployeeDTO emp:employees) {
+			if(emp.getEmpId()==empId) {
+				employees.remove(emp);
+				System.out.println("Employee with EmpId "+empId+" deleted successfully");
+				break;
+			}else {
+				throw new Exception("Employee does not exist");
+			}
+		}
+		
 		
 	}
 

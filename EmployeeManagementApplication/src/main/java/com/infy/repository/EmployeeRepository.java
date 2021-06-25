@@ -6,7 +6,7 @@ import com.infy.dto.EmployeeDTO;
 
 public interface EmployeeRepository {
 	public void insertEmployee(EmployeeDTO emp);
-	public void removeEmployee(int empId);
+	public void removeEmployee(int empId) throws Exception;
 	public List<EmployeeDTO> fetchCustomer();
 
 }
