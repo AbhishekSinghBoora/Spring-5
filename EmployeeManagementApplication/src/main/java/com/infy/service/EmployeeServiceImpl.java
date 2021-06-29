@@ -6,6 +6,9 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 //import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +55,18 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public void removeEmployee(int empId) {
 		repository.deleteById(empId);
 		
+	}
+	
+	// pagination method
+	@Override
+	public Page<Employee> findAll(Pageable page) {
+		return repository.findAll(page);
+	}
+
+	// sorting method
+	@Override
+	public List<Employee> findAll(Sort sort) {
+		return repository.findAll(sort);
 	}
 	
 
