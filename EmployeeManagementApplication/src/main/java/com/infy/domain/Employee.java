@@ -1,17 +1,24 @@
-package com.infy.dto;
+package com.infy.domain;
 
-import com.infy.domain.Address;
-import com.infy.domain.Employee;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
-public class EmployeeDTO {
+import com.infy.dto.EmployeeDTO;
 
+@Entity
+public class Employee {
+	@Id
 	private int empId;
 	private String empName;
 	private String department;
 	private String baseLocation;
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
-	// getter and setter methods
+	// getters and setters
 	public int getEmpId() {
 		return empId;
 	}
@@ -43,10 +50,10 @@ public class EmployeeDTO {
 		this.address = address;
 	}
 	
-	// constructor
-	public EmployeeDTO() {}
+	// constructors
+	public Employee() {}
 	
-	public EmployeeDTO(int empId, String empName, String department, String baseLocation, Address address) {
+	public Employee(int empId, String empName, String department, String baseLocation, Address address) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
@@ -54,15 +61,22 @@ public class EmployeeDTO {
 		this.baseLocation = baseLocation;
 		this.address = address;
 	}
-	
-	public static Employee prepareEmployeeEntity(EmployeeDTO employeeDTO) {
-		Employee employeeEntity = new Employee();
-		employeeEntity.setEmpId(employeeDTO.getEmpId());
-		employeeEntity.setEmpName(employeeDTO.getEmpName());
-		employeeEntity.setDepartment(employeeDTO.getDepartment());
-		employeeEntity.setBaseLocation(employeeDTO.getBaseLocation());
-		employeeEntity.setAddress(employeeDTO.getAddress());
-		return employeeEntity;
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empName=" + empName + ", department=" + department + ", baseLocation="
+				+ baseLocation + ", address=" + address + "]";
 	}
 	
+	public static EmployeeDTO prepareEmployeeDTO(Employee e) {
+		EmployeeDTO eDto = new EmployeeDTO();
+		eDto.setEmpId(e.getEmpId());
+		eDto.setEmpName(e.getEmpName());
+		eDto.setDepartment(e.getDepartment());
+		eDto.setBaseLocation(e.getBaseLocation());
+		eDto.setAddress(e.getAddress());
+		return eDto;
+	}
+	
+	
+
 }

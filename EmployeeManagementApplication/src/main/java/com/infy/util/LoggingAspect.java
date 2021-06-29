@@ -15,7 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.infy.dto.EmployeeDTO;
+import com.infy.domain.Employee;
 
 @Component
 @Aspect
@@ -61,7 +61,7 @@ public class LoggingAspect { // Aspect class
 	
 	// AfterReturning Advice with returning value
 	@AfterReturning(pointcut="execution(* com.infy.service.EmployeeServiceImpl.getAllEmployees(..))", returning = "result")
-	public void logAfterReturningDetails(JoinPoint joinPoint, List<EmployeeDTO> result) {
+	public void logAfterReturningDetails(JoinPoint joinPoint, List<Employee> result) {
 		logger.info("In after-returning advice 2, JoinPoint Signature :{}",joinPoint.getSignature());
 		System.out.println(result);
 		long time = System.currentTimeMillis();

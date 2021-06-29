@@ -1,0 +1,13 @@
+CREATE TABLE Address(
+   address_id  INT(11) NOT NULL Primary Key,
+   city VARCHAR(255) NOT NULL,
+   pincode VARCHAR(255) NULL   
+);
+CREATE TABLE Employee(
+   emp_id INT(11) NOT NULL Primary Key,
+   emp_name VARCHAR(255) NOT NULL,
+   department VARCHAR(255) NOT NULL,
+   base_Location VARCHAR(255) NOT NULL,
+   address INT(11) null,
+   CONSTRAINT Emp_FK Foreign key (Address) REFERENCES Address(address_id)
+);

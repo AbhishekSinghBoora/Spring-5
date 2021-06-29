@@ -1,13 +1,15 @@
 package com.infy.repository;
 
-import java.util.List;
+//import java.util.List;
 
-import com.infy.dto.EmployeeDTO;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EmployeeRepository {
-	public void insertEmployee(EmployeeDTO emp);
-	public void removeEmployee(int empId) throws Exception;
-	public List<EmployeeDTO> fetchEmployees();
-	public void updateEmployee(int empId, EmployeeDTO emp);
+import com.infy.domain.Employee;
+
+public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
+//	public void insertEmployee(Employee emp);
+//	public void removeEmployee(int empId) throws Exception;
+//	public List<Employee> fetchEmployees();
+//	public void updateEmployee(int empId, Employee emp);
 
 }
