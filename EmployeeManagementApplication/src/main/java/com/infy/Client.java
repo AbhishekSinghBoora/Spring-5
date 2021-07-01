@@ -36,12 +36,16 @@ public class Client implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		EmployeeDTO e1 = new EmployeeDTO(101, "Rohan", "ETA", "Delhi", null);
-		EmployeeDTO e2 = new EmployeeDTO(102, "Suraj", "FDM", "Luknow", null);
-		EmployeeDTO e3 = new EmployeeDTO(103, "Rohan", "DGTL", "Bnaras", null);
-		EmployeeDTO e4 = new EmployeeDTO(104, "Vikas", "FDM", "Kolkata", null);
-		EmployeeDTO e5 = new EmployeeDTO(105, "Ajay", "DGTL", "Mysore", null);
-		EmployeeDTO e6 = new EmployeeDTO(105, "Kartik", "DPM", "Banglore", null);
+		EmployeeDTO e1 = new EmployeeDTO(101, "Rohan", "ETA", "Delhi", null, 12000, "B", "1234567890");
+		EmployeeDTO e2 = new EmployeeDTO(102, "Suraj", "FDM", "Luknow", null, 15000, "A", "4567891230");
+		EmployeeDTO e3 = new EmployeeDTO(103, "Rohan", "DGTL", "Bnaras", null, 11500, "B", "7891234560");
+		EmployeeDTO e4 = new EmployeeDTO(104, "Vikas", "FDM", "Kolkata", null, 18000, "A", "4561237890");
+		EmployeeDTO e5 = new EmployeeDTO(105, "Ajay", "DGTL", "Mysore", null, 8000, "C", "1470258369");
+		EmployeeDTO e6 = new EmployeeDTO(106, "Kartik", "DPM", "Banglore", null, 14000, "B", "2583691047");
+		EmployeeDTO e7 = new EmployeeDTO(107, "Rohit", "DGTL", "Bnaras", null, 11500, "B", "7891234565");
+		EmployeeDTO e8 = new EmployeeDTO(108, "Vikram", "FDM", "Kolkata", null, 16000, "A", "4561237891");
+		EmployeeDTO e9 = new EmployeeDTO(109, "Vijay", "DGTL", "Mysore", null, 9000, "C", "1470258368");
+		EmployeeDTO e10 = new EmployeeDTO(110, "Kartika", "DPM", "Banglore", null, 13000, "B", "2583691041");
 		
 		service.addEmployee(e1);
 		service.addEmployee(e2);
@@ -49,6 +53,10 @@ public class Client implements CommandLineRunner{
 		service.addEmployee(e4);
 		service.addEmployee(e5);
 		service.addEmployee(e6);
+		service.addEmployee(e7);
+		service.addEmployee(e8);
+		service.addEmployee(e9);
+		service.addEmployee(e10);
 		System.out.println("Employees are successfully added.");
 		
 		// pagination and sorting operations
@@ -71,6 +79,13 @@ public class Client implements CommandLineRunner{
 			System.out.println(e);
 		}
 		
+		System.out.println("\n****************");
+		String dept = "DGTL";
+		Iterable<Employee> emp1 = service.getEmployee(dept);
+		System.out.println("List of employees of department "+dept);
+		for(Employee e:emp1) {
+			System.out.println(e);
+		}
 		System.out.println("\n****************");
 		
 		

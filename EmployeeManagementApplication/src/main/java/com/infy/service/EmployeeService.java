@@ -17,5 +17,7 @@ public interface EmployeeService {
 	public void removeEmployee(int empId);
 	Page<Employee> findAll(Pageable page);
 	List<Employee> findAll(Sort sort);
+	public Iterable<Employee> getEmployee(String dept);
+	
 	
 }

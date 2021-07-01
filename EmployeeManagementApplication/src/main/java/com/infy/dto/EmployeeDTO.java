@@ -10,6 +10,9 @@ public class EmployeeDTO {
 	private String department;
 	private String baseLocation;
 	private Address address;
+	private double empSalary;
+	private String empBandLevel;
+	private String empContactNumber;
 	
 	// getter and setter methods
 	public int getEmpId() {
@@ -42,19 +45,47 @@ public class EmployeeDTO {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	public double getEmpSalary() {
+		return empSalary;
+	}
+	public void setEmpSalary(double empSalary) {
+		this.empSalary = empSalary;
+	}
+	public String getEmpBandLevel() {
+		return empBandLevel;
+	}
+	public void setEmpBandLevel(String empBandLevel) {
+		this.empBandLevel = empBandLevel;
+	}
+	public String getEmpContactNumber() {
+		return empContactNumber;
+	}
+	public void setEmpContactNumber(String empContactNumber) {
+		this.empContactNumber = empContactNumber;
+	}
 	
 	// constructor
 	public EmployeeDTO() {}
-	
-	public EmployeeDTO(int empId, String empName, String department, String baseLocation, Address address) {
+		
+	public EmployeeDTO(int empId, String empName, String department, String baseLocation, Address address,
+			double empSalary, String empBandLevel, String empContactNumber) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
 		this.department = department;
 		this.baseLocation = baseLocation;
 		this.address = address;
+		this.empSalary = empSalary;
+		this.empBandLevel = empBandLevel;
+		this.empContactNumber = empContactNumber;
 	}
-	
+		
+	@Override
+	public String toString() {
+		return "EmployeeDTO [empId=" + empId + ", empName=" + empName + ", department=" + department + ", baseLocation="
+				+ baseLocation + ", address=" + address + ", empSalary=" + empSalary + ", empBandLevel=" + empBandLevel
+				+ ", empContactNumber=" + empContactNumber + "]";
+	}
 	public static Employee prepareEmployeeEntity(EmployeeDTO employeeDTO) {
 		Employee employeeEntity = new Employee();
 		employeeEntity.setEmpId(employeeDTO.getEmpId());
@@ -62,7 +93,11 @@ public class EmployeeDTO {
 		employeeEntity.setDepartment(employeeDTO.getDepartment());
 		employeeEntity.setBaseLocation(employeeDTO.getBaseLocation());
 		employeeEntity.setAddress(employeeDTO.getAddress());
+		employeeEntity.setEmpSalary(employeeDTO.getEmpSalary());
+		employeeEntity.setEmpBandLevel(employeeDTO.getEmpBandLevel());
+		employeeEntity.setEmpContactNumber(employeeDTO.getEmpContactNumber());
 		return employeeEntity;
 	}
+	
 	
 }

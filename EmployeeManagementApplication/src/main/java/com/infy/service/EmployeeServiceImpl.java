@@ -68,6 +68,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> findAll(Sort sort) {
 		return repository.findAll(sort);
 	}
+
+	public Iterable<Employee> getEmployee(String dept) {
+		return repository.findByDepartment(dept);
+	}
 	
 
 }
