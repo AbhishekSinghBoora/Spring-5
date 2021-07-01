@@ -68,9 +68,20 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Employee> findAll(Sort sort) {
 		return repository.findAll(sort);
 	}
-
-	public Iterable<Employee> getEmployee(String dept) {
+	
+	// query creation using method name 
+	public Iterable<Employee> getEmployeeByDepartment(String dept) {
 		return repository.findByDepartment(dept);
+	}
+	
+	// query creation using @Query  
+	public Iterable<Employee> getEmployeeByBandLevel(String bandLevel) {
+		return repository.findByEmpBandLevel(bandLevel);
+	}
+	
+	// query creation using @NamedQuery
+	public Iterable<Employee> getEmployeeByBaseLocation(String location) {
+		return repository.findByBaseLocation(location);
 	}
 	
 

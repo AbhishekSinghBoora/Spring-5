@@ -59,7 +59,7 @@ public class Client implements CommandLineRunner{
 		service.addEmployee(e10);
 		System.out.println("Employees are successfully added.");
 		
-		// pagination and sorting operations
+		// pagination
 		System.out.println("\n****************");
 		int k = (int) (repository.count()/3);
 		for(int i=0; i<=k; i++) {
@@ -73,47 +73,75 @@ public class Client implements CommandLineRunner{
 			}
 		}
 		
+		// sorting
+		System.out.println("\n****************");
 		System.out.println("Sorted records...");
 		Iterable<Employee> emp = service.findAll(Sort.by(Sort.Direction.DESC, "empName"));
 		for(Employee e: emp) {
 			System.out.println(e);
 		}
 		
+		// query creation using method name
 		System.out.println("\n****************");
 		String dept = "DGTL";
-		Iterable<Employee> emp1 = service.getEmployee(dept);
+		Iterable<Employee> emp1 = service.getEmployeeByDepartment(dept);
 		System.out.println("List of employees of department "+dept);
-		for(Employee e:emp1) {
+		for(Employee ee:emp1) {
+			System.out.println(ee);
+		}
+		
+		// query creation using @Query
+		System.out.println("\n****************");
+		String bandLevelList[] = {"A","B","C"};
+		for(String b : bandLevelList) {
+			Iterable<Employee> emp2 = service.getEmployeeByBandLevel(b);
+			System.out.println("\nUpdated employee salary of band level "+b);
+			for(Employee e:emp2) {	
+				if(b.equals("A")) {
+					e.setEmpSalary(e.getEmpSalary()*1.15);
+				}else if(b.equals("B")) {
+					e.setEmpSalary(e.getEmpSalary()*1.10);
+				}else if(b.equals("C")) {
+					e.setEmpSalary(e.getEmpSalary()*1.05);
+				}
+				System.out.println(e);
+			}
+		}
+		
+		// query creation using @NamedQuery
+		System.out.println("\n****************");
+		String loc = "Mysore";
+		Iterable<Employee> emp3 = service.getEmployeeByBaseLocation(loc);
+		System.out.println("List of employees from base location "+loc);
+		for(Employee e:emp3) {
 			System.out.println(e);
 		}
-		System.out.println("\n****************");
 		
-		
-		System.out.println("Enter the employee id of the employee which has to be deleted.");
-		Scanner sc = new Scanner(System.in);
-		int id = sc.nextInt();
-		
-		service.removeEmployee(id);
-		logger.info("Employee removed successfully.");
-		
-		logger.info("Let's print the details of an employee");
-		System.out.println("Enter the emp id of employee which details you want to print.");
-		int id1 = sc.nextInt();
-		EmployeeDTO dto = service.searchEmployee(id1);
-		logger.info("Employee Details");
-		logger.info("Id: "+dto.getEmpId()
-				+ "\nName: "+dto.getEmpName()
-				+ "\nDepartment: "+dto.getDepartment()
-				+ "\nBase Location: "+dto.getBaseLocation()
-				+ "\nAddress: "+dto.getAddress());
-		
-		logger.info("Let's update the department of an employee");
-		System.out.println("Enter the emp id of the employee which department has to be updated.");
-		int id2 = sc.nextInt();
-		System.out.println("Enter the new department allocated");
-		String newDept = sc.next();
-		service.editEmployee(id2, newDept);
-		sc.close();
+//		System.out.println("Enter the employee id of the employee which has to be deleted.");
+//		Scanner sc = new Scanner(System.in);
+//		int id = sc.nextInt();
+//		
+//		service.removeEmployee(id);
+//		logger.info("Employee removed successfully.");
+//		
+//		logger.info("Let's print the details of an employee");
+//		System.out.println("Enter the emp id of employee which details you want to print.");
+//		int id1 = sc.nextInt();
+//		EmployeeDTO dto = service.searchEmployee(id1);
+//		logger.info("Employee Details");
+//		logger.info("Id: "+dto.getEmpId()
+//				+ "\nName: "+dto.getEmpName()
+//				+ "\nDepartment: "+dto.getDepartment()
+//				+ "\nBase Location: "+dto.getBaseLocation()
+//				+ "\nAddress: "+dto.getAddress());
+//		
+//		logger.info("Let's update the department of an employee");
+//		System.out.println("Enter the emp id of the employee which department has to be updated.");
+//		int id2 = sc.nextInt();
+//		System.out.println("Enter the new department allocated");
+//		String newDept = sc.next();
+//		service.editEmployee(id2, newDept);
+//		sc.close();
 		
 	}
 

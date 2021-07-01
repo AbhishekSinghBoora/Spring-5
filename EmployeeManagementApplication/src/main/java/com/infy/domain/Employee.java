@@ -5,9 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.NamedQuery;
+
 import com.infy.dto.EmployeeDTO;
 
 @Entity
+@NamedQuery(name="Employee.findByBaseLocation", query="select e from Employee e where e.baseLocation=?1")
 public class Employee {
 	@Id
 	private int empId;
