@@ -29,7 +29,9 @@ public class AddressDTO {
 	}
 	
 	// constructors
-	public AddressDTO() {}
+	public AddressDTO() {
+		super();
+	}
 	
 	public AddressDTO(int addressId, String city, String pincode) {
 		super();
@@ -37,12 +39,12 @@ public class AddressDTO {
 		this.city = city;
 		this.pincode = pincode;
 	}
-	
+		
+	@Override
+	public String toString() {
+		return "Address [addressId=" + addressId + ", city=" + city + ", pincode=" + pincode + "]";
+	}
 	public static Address prepareAddressEntity(AddressDTO addressDTO) {
-		Address addressEntity = new Address();
-		addressEntity.setAddressId(addressDTO.getAddressId());
-		addressEntity.setCity(addressDTO.getCity());
-		addressEntity.setPincode(addressDTO.getPincode());
-		return addressEntity;
+		return new Address(addressDTO.getAddressId(), addressDTO.getCity(), addressDTO.getPincode());
 	}
 }

@@ -21,5 +21,7 @@ public interface EmployeeService {
 	public Iterable<Employee> getEmployeeByBandLevel(String bandLevel);
 	public Iterable<Employee> getEmployeeByBaseLocation(String baseLocation);
 	
+	// method to update employee record
+	public void updateEmployee(EmployeeDTO employeeDTO);
 	
 }

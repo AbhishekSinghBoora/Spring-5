@@ -3,10 +3,12 @@ package com.infy.domain;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.NamedQuery;
 
+import com.infy.dto.AddressDTO;
 import com.infy.dto.EmployeeDTO;
 
 @Entity
@@ -17,12 +19,14 @@ public class Employee {
 	private String empName;
 	private String department;
 	private String baseLocation;
+		
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
+	private Address address;
+	
 	private double empSalary;
 	private String empBandLevel;
 	private String empContactNumber;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	private Address address;
 	
 	// getters and setters
 	public int getEmpId() {
@@ -76,38 +80,34 @@ public class Employee {
 	
 	// constructors
 	public Employee() {}
-
-	public Employee(int empId, String empName, String department, String baseLocation, double empSalary,
-			String empBandLevel, String empContactNumber, Address address) {
+		
+	public Employee(int empId, String empName, String department, String baseLocation, Address address,
+			double empSalary, String empBandLevel, String empContactNumber) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
 		this.department = department;
 		this.baseLocation = baseLocation;
+		this.address = address;
 		this.empSalary = empSalary;
 		this.empBandLevel = empBandLevel;
 		this.empContactNumber = empContactNumber;
-		this.address = address;
 	}
 		
-	public static EmployeeDTO prepareEmployeeDTO(Employee e) {
-		EmployeeDTO eDto = new EmployeeDTO();
-		eDto.setEmpId(e.getEmpId());
-		eDto.setEmpName(e.getEmpName());
-		eDto.setDepartment(e.getDepartment());
-		eDto.setBaseLocation(e.getBaseLocation());
-		eDto.setAddress(e.getAddress());
-		eDto.setEmpSalary(e.getEmpSalary());
-		eDto.setEmpBandLevel(e.getEmpBandLevel());
-		eDto.setEmpContactNumber(e.getEmpContactNumber());
-		return eDto;
-	}
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", empName=" + empName + ", department=" + department + ", baseLocation="
-				+ baseLocation + ", empSalary=" + empSalary + ", empBandLevel=" + empBandLevel + ", empContactNumber="
-				+ empContactNumber + ", address=" + address + "]";
+				+ baseLocation + ", address=" + address + ", empSalary=" + empSalary + ", empBandLevel=" + empBandLevel
+				+ ", empContactNumber=" + empContactNumber + "]";
 	}
+	
+	public static EmployeeDTO prepareEmployeeDTO(Employee empEntity) {
+		Address address = new Address(empEntity.getAddress().getAddressId(),empEntity.getAddress().getCity(), empEntity.getAddress().getPincode());
+		AddressDTO addressDTO = Address.prepareAddressDTO(address);
+		return new EmployeeDTO(empEntity.getEmpId(), empEntity.getEmpName(), empEntity.getDepartment(), empEntity.getBaseLocation(), addressDTO, empEntity.getEmpSalary(), empEntity.getEmpBandLevel(), empEntity.getEmpContactNumber());
+		
+	}
+	
 	
 	
 	

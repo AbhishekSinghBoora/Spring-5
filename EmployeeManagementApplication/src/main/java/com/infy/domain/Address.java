@@ -3,6 +3,8 @@ package com.infy.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import com.infy.dto.AddressDTO;
+
 @Entity
 public class Address {
 	@Id
@@ -38,6 +40,15 @@ public class Address {
 		this.addressId = addressId;
 		this.city = city;
 		this.pincode = pincode;
+	}
+	
+	@Override
+	public String toString() {
+		return "Address [addressId=" + addressId + ", city=" + city + ", pincode=" + pincode + "]";
+	}
+	
+	public static AddressDTO prepareAddressDTO(Address addressEntity) {
+		return new AddressDTO(addressEntity.getAddressId(), addressEntity.getCity(), addressEntity.getPincode());
 	}
 	
 	

@@ -13,7 +13,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.infy.domain.Employee;
+import com.infy.dto.AddressDTO;
 import com.infy.dto.EmployeeDTO;
+import com.infy.repository.AddressRepository;
 import com.infy.repository.EmployeeRepository;
 
 @Service("employeeService")
@@ -21,6 +23,9 @@ import com.infy.repository.EmployeeRepository;
 public class EmployeeServiceImpl implements EmployeeService{
 	@Autowired
 	private EmployeeRepository repository;
+	
+	@Autowired
+	private AddressRepository addressRepository;
 
 	@Override
 	public void addEmployee(EmployeeDTO emp) {
@@ -83,6 +88,16 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public Iterable<Employee> getEmployeeByBaseLocation(String location) {
 		return repository.findByBaseLocation(location);
 	}
+	
+	// update on Employee and Address table
+	public void updateEmployee(EmployeeDTO eDto) {
+		// method to update address in employee table
+		repository.updateEmployeeAddress(AddressDTO.prepareAddressEntity(eDto.getAddress()), eDto.getEmpId());
+		
+		// method to update new address details in address table
+		addressRepository.updateAddress(EmployeeDTO.prepareEmployeeEntity(eDto).getAddress().getCity(), EmployeeDTO.prepareEmployeeEntity(eDto).getAddress().getPincode(), EmployeeDTO.prepareEmployeeEntity(eDto).getAddress().getAddressId());
+	}
+	
 	
 
 }

@@ -11,11 +11,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import com.infy.domain.Employee;
+import com.infy.dto.AddressDTO;
 import com.infy.dto.EmployeeDTO;
 import com.infy.repository.EmployeeRepository;
 import com.infy.service.EmployeeService;
@@ -24,7 +26,7 @@ import com.infy.service.EmployeeServiceImpl;
 public class Client implements CommandLineRunner{
 	static Logger logger = LogManager.getLogger(Client.class);
 	@Autowired
-	ApplicationContext context;
+	AbstractApplicationContext context;
 	@Autowired
 	EmployeeService service;
 	@Autowired
@@ -36,16 +38,25 @@ public class Client implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		EmployeeDTO e1 = new EmployeeDTO(101, "Rohan", "ETA", "Delhi", null, 12000, "B", "1234567890");
-		EmployeeDTO e2 = new EmployeeDTO(102, "Suraj", "FDM", "Luknow", null, 15000, "A", "4567891230");
-		EmployeeDTO e3 = new EmployeeDTO(103, "Rohan", "DGTL", "Bnaras", null, 11500, "B", "7891234560");
-		EmployeeDTO e4 = new EmployeeDTO(104, "Vikas", "FDM", "Kolkata", null, 18000, "A", "4561237890");
-		EmployeeDTO e5 = new EmployeeDTO(105, "Ajay", "DGTL", "Mysore", null, 8000, "C", "1470258369");
-		EmployeeDTO e6 = new EmployeeDTO(106, "Kartik", "DPM", "Banglore", null, 14000, "B", "2583691047");
-		EmployeeDTO e7 = new EmployeeDTO(107, "Rohit", "DGTL", "Bnaras", null, 11500, "B", "7891234565");
-		EmployeeDTO e8 = new EmployeeDTO(108, "Vikram", "FDM", "Kolkata", null, 16000, "A", "4561237891");
-		EmployeeDTO e9 = new EmployeeDTO(109, "Vijay", "DGTL", "Mysore", null, 9000, "C", "1470258368");
-		EmployeeDTO e10 = new EmployeeDTO(110, "Kartika", "DPM", "Banglore", null, 13000, "B", "2583691041");
+		AddressDTO a1 = new AddressDTO(401, "Mumbai", "125001");
+		AddressDTO a2 = new AddressDTO(402, "Delhi", "123001");
+		AddressDTO a3 = new AddressDTO(403, "Hydrabad", "124001");
+		AddressDTO a4 = new AddressDTO(404, "Bangalore", "131001");
+		AddressDTO a5 = new AddressDTO(405, "Pune", "129001");
+		AddressDTO a6 = new AddressDTO(406, "Chandigarh", "121001");
+		AddressDTO a7 = new AddressDTO(407, "Jaipur", "115001");
+		
+		
+		EmployeeDTO e1 = new EmployeeDTO(101, "Rohan", "ETA", "Delhi", a2, 12000, "B", "1234567890");
+		EmployeeDTO e2 = new EmployeeDTO(102, "Suraj", "FDM", "Luknow", a3, 15000, "A", "4567891230");
+		EmployeeDTO e3 = new EmployeeDTO(103, "Rohan", "DGTL", "Bnaras", a2, 11500, "B", "7891234560");
+		EmployeeDTO e4 = new EmployeeDTO(104, "Vikas", "FDM", "Kolkata", a4, 18000, "A", "4561237890");
+		EmployeeDTO e5 = new EmployeeDTO(105, "Ajay", "DGTL", "Mysore", a5, 8000, "C", "1470258369");
+		EmployeeDTO e6 = new EmployeeDTO(106, "Kartik", "DPM", "Banglore", a4, 14000, "B", "2583691047");
+		EmployeeDTO e7 = new EmployeeDTO(107, "Rohit", "DGTL", "Bnaras", a7, 11500, "B", "7891234565");
+		EmployeeDTO e8 = new EmployeeDTO(108, "Vikram", "FDM", "Kolkata", a4, 16000, "A", "4561237891");
+		EmployeeDTO e9 = new EmployeeDTO(109, "Vijay", "DGTL", "Mysore", a1, 9000, "C", "1470258368");
+		EmployeeDTO e10 = new EmployeeDTO(110, "Kartika", "DPM", "Banglore", a6, 13000, "B", "2583691041");
 		
 		service.addEmployee(e1);
 		service.addEmployee(e2);
@@ -115,6 +126,25 @@ public class Client implements CommandLineRunner{
 		System.out.println("List of employees from base location "+loc);
 		for(Employee e:emp3) {
 			System.out.println(e);
+		}
+		
+		// updating Employee and Address details 
+		System.out.println("\n****************");
+		int empId = 104;
+		String newCity = "Mohali";
+		String newPincode = "135001";
+		AddressDTO aDto = new AddressDTO(407, newCity, newPincode);
+		EmployeeDTO eDto = new EmployeeDTO(empId, "Vikas", "FDM", "Kolkata", aDto, 18000, "A", "4561237890");
+		
+		try {
+			service.updateEmployee(eDto);
+			System.out.println("Success: Both Employee and Plan details updated successfully!");
+		}catch (DataAccessException e) {
+			System.out.println("Error: "+e.getMessage());
+			logger.info(e.getMessage(),e);
+		}
+		finally {
+			context.close();
 		}
 		
 //		System.out.println("Enter the employee id of the employee which has to be deleted.");

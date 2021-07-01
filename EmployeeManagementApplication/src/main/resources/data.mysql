@@ -15,3 +15,7 @@ CREATE TABLE Employee(
    address INT(11) null,
    CONSTRAINT Emp_FK Foreign key (Address) REFERENCES Address(address_id)
 );
+
+SELECT * FROM Address;
+SELECT * FROM Employee;
+
