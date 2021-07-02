@@ -53,9 +53,9 @@ public class Client implements CommandLineRunner{
 		EmployeeDTO e4 = new EmployeeDTO(104, "Vikas", "FDM", "Kolkata", a4, 18000, "A", "4561237890");
 		EmployeeDTO e5 = new EmployeeDTO(105, "Ajay", "DGTL", "Mysore", a5, 8000, "C", "1470258369");
 		EmployeeDTO e6 = new EmployeeDTO(106, "Kartik", "DPM", "Banglore", a4, 14000, "B", "2583691047");
-		EmployeeDTO e7 = new EmployeeDTO(107, "Rohit", "DGTL", "Bnaras", a7, 11500, "B", "7891234565");
-		EmployeeDTO e8 = new EmployeeDTO(108, "Vikram", "FDM", "Kolkata", a4, 16000, "A", "4561237891");
-		EmployeeDTO e9 = new EmployeeDTO(109, "Vijay", "DGTL", "Mysore", a1, 9000, "C", "1470258368");
+		EmployeeDTO e7 = new EmployeeDTO(107, "Ajay", "DGTL", "Bnaras", a7, 11500, "B", "7891234565");
+		EmployeeDTO e8 = new EmployeeDTO(108, "Suraj", "FDM", "Kolkata", a4, 16000, "A", "4561237891");
+		EmployeeDTO e9 = new EmployeeDTO(109, "Ajay", "DGTL", "Mysore", a1, 9000, "C", "1470258368");
 		EmployeeDTO e10 = new EmployeeDTO(110, "Kartika", "DPM", "Banglore", a6, 13000, "B", "2583691041");
 		
 		service.addEmployee(e1);
@@ -143,10 +143,26 @@ public class Client implements CommandLineRunner{
 			System.out.println("Error: "+e.getMessage());
 			logger.info(e.getMessage(),e);
 		}
-		finally {
-			context.close();
-		}
+//		finally {
+//			context.close();
+//		}
 		
+		// invoking custom repository method to search employee
+		System.out.println("\n****************");
+		List<Employee> list1 = service.searchEmployee(null, null, "Banglore", null);
+		System.out.println("list of employees having base location Banglore :\n"+list1);
+		
+		List<Employee> list2 = service.searchEmployee("Suraj", "FDM", null, null);
+		System.out.println("list of employees having name Suraj and department FDM :\n"+list2);
+		
+		List<Employee> list3 = service.searchEmployee(null, "DGTL", "Bnaras", null);
+		System.out.println("list of employees having dept DGTL and base location Bnaras :\n"+list3);
+		
+		List<Employee> list4 = service.searchEmployee("Ajay", null, null, "4561237891");
+		System.out.println("list of employees having name Ajay or contact number 4561237891 :\n"+list4);
+		
+		System.out.println("\n****************");
+//		
 //		System.out.println("Enter the employee id of the employee which has to be deleted.");
 //		Scanner sc = new Scanner(System.in);
 //		int id = sc.nextInt();
@@ -172,6 +188,7 @@ public class Client implements CommandLineRunner{
 //		String newDept = sc.next();
 //		service.editEmployee(id2, newDept);
 //		sc.close();
+		context.close();
 		
 	}
 

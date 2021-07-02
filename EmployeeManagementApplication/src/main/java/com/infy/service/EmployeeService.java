@@ -24,4 +24,7 @@ public interface EmployeeService {
 	// method to update employee record
 	public void updateEmployee(EmployeeDTO employeeDTO);
 	
+	// method to search customer using custom repository method
+	public List<Employee> searchEmployee(String eName, String eDept, String eBaseLocation, String eContactNumber);
+	
 }

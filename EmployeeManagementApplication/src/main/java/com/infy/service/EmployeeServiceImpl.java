@@ -98,6 +98,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		addressRepository.updateAddress(EmployeeDTO.prepareEmployeeEntity(eDto).getAddress().getCity(), EmployeeDTO.prepareEmployeeEntity(eDto).getAddress().getPincode(), EmployeeDTO.prepareEmployeeEntity(eDto).getAddress().getAddressId());
 	}
 	
+	// method to search customer using custom repository method
+	public List<Employee> searchEmployee(String eName, String eDept, String eBaseLocation, String eContactNumber){
+		return repository.searchEmployee(eName, eDept, eBaseLocation, eContactNumber);
+	}
+
 	
 
 }

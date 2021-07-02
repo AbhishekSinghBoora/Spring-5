@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.infy.domain.Address;
 import com.infy.domain.Employee;
 
-public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
+public interface EmployeeRepository extends JpaRepository<Employee, Integer>,IEmployeeRepository{
 	// query creation based on method names
 	List<Employee> findByDepartment(String dept); 
 	
